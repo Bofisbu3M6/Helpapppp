@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>STORE NGUYENLONGIOS | Config & Proxy VIP</title>
+    <title>STORE NGUYENLONGIOS | CONFIG • AIMLOCK</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -13,52 +13,51 @@
         }
 
         body {
-            background: #05070f;
+            background: #07090f;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
-            padding: 0;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 16px 12px 40px;
+            color: #fff;
         }
 
-        /* Container chính */
         .app {
-            max-width: 450px;
-            width: 100%;
-            margin: 20px auto;
-            background: #0e1020;
-            border-radius: 0;
+            max-width: 480px;
+            margin: 0 auto;
+            background: #0f111a;
+            border-radius: 32px;
             overflow: hidden;
-            box-shadow: 0 0 0 1px rgba(255, 200, 100, 0.2), 0 20px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* ===== HEADER ===== */
+        /* Header */
         .header {
-            background: #0a0c18;
+            background: #0c1022;
             padding: 18px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #ffd96620;
+            border-bottom: 1px solid #ffd96630;
         }
         .logo h1 {
             font-size: 18px;
-            font-weight: 700;
-            color: #FFD966;
-            letter-spacing: -0.3px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFD966, #FFB347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         .logo p {
             font-size: 9px;
-            color: #6c7aa0;
+            color: #7a85aa;
             margin-top: 2px;
         }
-        .menu-btn {
-            background: #161c30;
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
+        .menu-icon {
+            background: #1a1f3a;
+            width: 44px;
+            height: 44px;
+            border-radius: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -66,20 +65,21 @@
             font-size: 20px;
             color: #FFD966;
             border: 1px solid #ffd96630;
-            transition: 0.2s;
         }
+
+        /* Dropdown */
         .dropdown {
             position: absolute;
-            top: 70px;
-            right: 20px;
-            background: #12172e;
-            border-radius: 16px;
-            width: 230px;
+            top: 75px;
+            right: 30px;
+            background: #151e34;
+            border-radius: 20px;
+            width: 250px;
             z-index: 200;
             display: none;
             flex-direction: column;
-            border: 1px solid #ffd96640;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid #ffd96660;
+            box-shadow: 0 10px 30px black;
         }
         .dropdown.show {
             display: flex;
@@ -87,37 +87,40 @@
         .dropdown button {
             background: transparent;
             border: none;
-            padding: 14px 18px;
+            padding: 14px 20px;
             text-align: left;
-            color: #eef2ff;
+            color: #fff;
             font-size: 14px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 12px;
-            border-bottom: 1px solid #212842;
-        }
-        .dropdown button:last-child {
-            border-bottom: none;
+            border-bottom: 1px solid #2a345b;
         }
         .dropdown button i {
-            width: 22px;
+            width: 24px;
             color: #FFD966;
         }
         .dropdown button:hover {
-            background: #1f2746;
+            background: #1f2a4a;
         }
 
-        /* ===== FORM ĐĂNG NHẬP / ĐĂNG KÝ (CHUẨN NHƯ ẢNH) ===== */
-        .auth-container {
-            padding: 30px 24px 40px;
+        /* Nội dung trang */
+        .page {
+            padding: 24px 20px;
+            flex: 1;
+            display: none;
         }
+        .page.active {
+            display: block;
+        }
+
+        /* Form đăng nhập */
         .auth-title {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 700;
             text-align: center;
             margin-bottom: 28px;
-            color: #ffffff;
         }
         .input-field {
             margin-bottom: 18px;
@@ -125,7 +128,6 @@
         .input-field label {
             display: block;
             font-size: 13px;
-            font-weight: 500;
             margin-bottom: 6px;
             color: #b8c3e6;
         }
@@ -136,17 +138,7 @@
             padding: 14px 18px;
             border-radius: 12px;
             color: white;
-            font-size: 14px;
             outline: none;
-        }
-        .input-field input::placeholder {
-            color: #5f6b92;
-        }
-        .forgot-link {
-            text-align: right;
-            font-size: 12px;
-            color: #8f9bb3;
-            margin: -10px 0 20px;
         }
         .captcha-box {
             background: #12172e;
@@ -158,19 +150,6 @@
             margin: 20px 0;
             border: 1px solid #2a3357;
         }
-        .captcha-box input {
-            width: 18px;
-            height: 18px;
-        }
-        .captcha-box span {
-            font-size: 13px;
-            color: #b8c3e6;
-        }
-        .captcha-box i {
-            margin-left: auto;
-            color: #FFB347;
-            font-size: 20px;
-        }
         .btn-submit {
             background: #2a3670;
             width: 100%;
@@ -178,80 +157,114 @@
             border: none;
             border-radius: 12px;
             font-weight: 700;
-            font-size: 16px;
             color: white;
             cursor: pointer;
-            margin-top: 8px;
         }
         .switch-area {
             text-align: center;
             margin-top: 20px;
             font-size: 13px;
-            color: #9aa5c5;
         }
-        .switch-area .switch-link {
+        .switch-link {
             color: #FFD966;
             font-weight: bold;
             cursor: pointer;
             margin-left: 6px;
         }
 
-        /* ===== CARD SẢN PHẨM (GIỐNG ẢNH) ===== */
-        .products-area {
-            padding: 20px 18px;
-        }
+        /* Product card */
         .product-card {
-            background: #0f1324;
+            background: #11172b;
             border-radius: 20px;
-            padding: 18px;
+            padding: 16px;
             margin-bottom: 16px;
-            border: 1px solid #262e50;
+            border: 1px solid #2a345b;
         }
-        .product-title {
-            font-size: 18px;
+        .product-name {
+            font-size: 17px;
             font-weight: 800;
-            color: #fff;
         }
         .product-price {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
             color: #FFD966;
             margin: 6px 0;
         }
-        .product-description {
+        .product-desc {
             font-size: 12px;
             color: #b0bbdf;
             line-height: 1.5;
-            margin: 10px 0;
             white-space: pre-line;
         }
-        .buy-button {
+        .buy-btn {
             background: #2a3670;
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: none;
             border-radius: 40px;
             font-weight: 700;
-            color: white;
             margin-top: 12px;
             cursor: pointer;
+            color: white;
         }
-        .balance-info {
+
+        /* Balance card */
+        .balance-card {
             background: #0a0e1c;
-            margin: 16px 18px;
             padding: 12px 18px;
             border-radius: 40px;
             display: flex;
             align-items: center;
             gap: 10px;
+            margin-bottom: 20px;
             border: 1px solid #ffd96630;
         }
-        .purchased-section {
-            background: #0a0e1c;
-            margin: 20px 18px;
+
+        /* Admin form thêm sản phẩm */
+        .admin-form {
+            background: #0c1022;
             border-radius: 20px;
-            padding: 16px;
+            padding: 18px;
+            margin-bottom: 20px;
         }
+        .admin-form input, .admin-form textarea {
+            background: #161e38;
+            border: 1px solid #2e3a66;
+            padding: 12px;
+            border-radius: 12px;
+            width: 100%;
+            margin-bottom: 12px;
+            color: white;
+        }
+        .file-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .file-row input {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        .file-row button {
+            background: #2a3670;
+            border: none;
+            padding: 0 15px;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+        }
+        .admin-btn {
+            background: #2a3670;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
         .purchased-item {
             background: #12172e;
             border-radius: 16px;
@@ -264,34 +277,12 @@
             border-radius: 12px;
             font-size: 11px;
             margin-top: 8px;
-            word-break: break-all;
         }
-        .admin-panel {
-            background: #0c1022;
-            margin: 16px 18px;
-            padding: 18px;
-            border-radius: 20px;
-            border: 1px solid #ffd96630;
-        }
-        .admin-panel input, .admin-panel textarea {
-            background: #161e38;
-            border: 1px solid #2e3a66;
-            padding: 12px;
-            border-radius: 12px;
-            width: 100%;
-            margin-bottom: 12px;
-            color: white;
-        }
-        .admin-btn {
-            background: #2a3670;
-            width: 100%;
-            padding: 10px;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            border: none;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #2a3357;
         }
         footer {
             text-align: center;
@@ -306,7 +297,6 @@
             left: 50%;
             transform: translateX(-50%);
             background: #1a243f;
-            backdrop-filter: blur(12px);
             padding: 10px 20px;
             border-radius: 40px;
             z-index: 999;
@@ -314,78 +304,145 @@
             font-size: 12px;
             border: 1px solid #FFD966;
         }
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: #FFD966;
+            font-size: 20px;
+            cursor: pointer;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
     </style>
 </head>
 <body>
-<div class="app">
-    <!-- HEADER -->
+<div class="app" id="app">
     <div class="header">
         <div class="logo">
-            <h1>STORE NGUYENLONGIOS</h1>
-            <p>CONFIG • PROXY • SCRIPT</p>
+            <h1 id="appName">STORE NGUYENLONGIOS</h1>
+            <p id="appSubText">Config • Proxy • Script • MMO</p>
         </div>
-        <div class="menu-btn" id="menuBtn">
+        <div class="menu-icon" id="menuBtn">
             <i class="fas fa-bars"></i>
         </div>
         <div class="dropdown" id="dropdown">
-            <button id="accInfo"><i class="fas fa-user"></i> Thông tin tài khoản</button>
-            <button id="topupNav"><i class="fas fa-credit-card"></i> Nạp tiền (ATM/CARD)</button>
-            <button id="depositNav"><i class="fas fa-history"></i> Lịch sử nạp</button>
-            <button id="purchaseNav"><i class="fas fa-shopping-bag"></i> Lịch sử mua</button>
-            <button id="logoutNav"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
-            <button id="adminNav"><i class="fas fa-crown"></i> Quản trị viên</button>
+            <button id="navHome"><i class="fas fa-home"></i> Trang chủ</button>
+            <button id="navAccount"><i class="fas fa-user"></i> Thông tin tài khoản</button>
+            <button id="navTopup"><i class="fas fa-credit-card"></i> Nạp tiền</button>
+            <button id="navDepositHistory"><i class="fas fa-history"></i> Lịch sử nạp</button>
+            <button id="navPurchaseHistory"><i class="fas fa-shopping-bag"></i> Lịch sử mua</button>
+            <button id="navAdmin"><i class="fas fa-crown"></i> Quản trị viên</button>
+            <button id="navLogout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
         </div>
     </div>
 
-    <!-- FORM ĐĂNG NHẬP / ĐĂNG KÝ -->
-    <div id="authScreen">
-        <div class="auth-container">
-            <div class="auth-title" id="authTitle">Đăng Nhập</div>
-            <div class="input-field">
-                <label>Tên đăng nhập</label>
-                <input type="text" id="loginUser" placeholder="Enter Username">
-            </div>
-            <div class="input-field">
-                <label>Mật khẩu</label>
-                <input type="password" id="loginPass" placeholder="Vui lòng nhập mật khẩu">
-            </div>
-            <div class="forgot-link" id="forgotLink">Quên mật khẩu</div>
-            <div class="captcha-box">
-                <input type="checkbox" id="captchaCheck">
-                <span>Tôi không phải là người máy</span>
-                <i class="fas fa-robot"></i>
-            </div>
-            <button class="btn-submit" id="submitAuth">Đăng Nhập</button>
-            <div class="switch-area">
-                <span id="switchMsg">Bạn không có tài khoản?</span>
-                <span class="switch-link" id="toggleMode">Đăng ký</span>
-            </div>
+    <!-- Trang đăng nhập -->
+    <div id="loginPage" class="page active">
+        <div class="auth-title" id="loginTitle">Đăng Nhập</div>
+        <div class="input-field">
+            <label>Tên đăng nhập</label>
+            <input type="text" id="loginUsername" placeholder="Enter Username">
+        </div>
+        <div class="input-field">
+            <label>Mật khẩu</label>
+            <input type="password" id="loginPassword" placeholder="Vui lòng nhập mật khẩu">
+        </div>
+        <div class="captcha-box">
+            <input type="checkbox" id="captchaCheck">
+            <span>Tôi không phải là người máy</span>
+            <i class="fas fa-robot"></i>
+        </div>
+        <button class="btn-submit" id="submitLogin">Đăng Nhập</button>
+        <div class="switch-area">
+            <span>Bạn không có tài khoản?</span>
+            <span class="switch-link" id="showRegister">Đăng ký</span>
         </div>
     </div>
 
-    <!-- MAIN APP SAU LOGIN -->
-    <div id="mainScreen" style="display: none;">
-        <div class="balance-info">
+    <!-- Trang đăng ký -->
+    <div id="registerPage" class="page">
+        <div class="auth-title">Đăng Ký</div>
+        <div class="input-field">
+            <label>Tên đăng nhập</label>
+            <input type="text" id="regUsername" placeholder="Enter Username">
+        </div>
+        <div class="input-field">
+            <label>Mật khẩu</label>
+            <input type="password" id="regPassword" placeholder="Vui lòng nhập mật khẩu">
+        </div>
+        <div class="captcha-box">
+            <input type="checkbox" id="regCaptcha">
+            <span>Tôi không phải là người máy</span>
+            <i class="fas fa-robot"></i>
+        </div>
+        <button class="btn-submit" id="submitRegister">Đăng Ký</button>
+        <div class="switch-area">
+            <span>Đã có tài khoản?</span>
+            <span class="switch-link" id="showLogin">Đăng nhập</span>
+        </div>
+    </div>
+
+    <!-- Trang chủ (sau login) -->
+    <div id="homePage" class="page">
+        <div class="balance-card">
             <i class="fas fa-wallet" style="color:#FFD966"></i>
-            <span>Số dư: </span><strong id="balanceValue">0đ</strong>
+            <span>Số dư: </span><strong id="balanceAmount">0đ</strong>
         </div>
-        <div class="products-area" id="productsContainer"></div>
-        <div class="purchased-section">
+        <div id="productsList"></div>
+        <div style="margin-top: 20px;">
             <div style="margin-bottom: 10px;"><i class="fas fa-download"></i> Sản phẩm đã mua</div>
-            <div id="purchasedContainer">Chưa có sản phẩm nào</div>
+            <div id="purchasedList"></div>
         </div>
-        <div id="adminPanel" class="admin-panel" style="display: none;">
-            <div style="font-weight:bold;margin-bottom:12px">👑 ADMIN</div>
+    </div>
+
+    <!-- Trang thông tin tài khoản -->
+    <div id="accountPage" class="page">
+        <button class="back-btn" onclick="showPage('homePage')"><i class="fas fa-arrow-left"></i> Quay lại</button>
+        <div id="accountInfo"></div>
+    </div>
+
+    <!-- Trang nạp tiền -->
+    <div id="topupPage" class="page">
+        <button class="back-btn" onclick="showPage('homePage')"><i class="fas fa-arrow-left"></i> Quay lại</button>
+        <h3 style="margin-bottom: 20px;">Nạp tiền</h3>
+        <button class="btn-submit" id="atmTopup" style="margin-bottom: 12px;">🏦 Nạp bằng ATM (Admin xử lý)</button>
+        <button class="btn-submit" id="cardTopup">💳 Nạp bằng thẻ cào (Auto)</button>
+    </div>
+
+    <!-- Trang lịch sử nạp -->
+    <div id="depositHistoryPage" class="page">
+        <button class="back-btn" onclick="showPage('homePage')"><i class="fas fa-arrow-left"></i> Quay lại</button>
+        <div id="depositHistoryList"></div>
+    </div>
+
+    <!-- Trang lịch sử mua -->
+    <div id="purchaseHistoryPage" class="page">
+        <button class="back-btn" onclick="showPage('homePage')"><i class="fas fa-arrow-left"></i> Quay lại</button>
+        <div id="purchaseHistoryList"></div>
+    </div>
+
+    <!-- Trang quản trị viên -->
+    <div id="adminPage" class="page">
+        <button class="back-btn" onclick="showPage('homePage')"><i class="fas fa-arrow-left"></i> Quay lại</button>
+        <h3 style="margin-bottom: 16px;">👑 Thêm sản phẩm mới</h3>
+        <div class="admin-form">
             <input type="text" id="prodName" placeholder="Tên sản phẩm">
-            <textarea id="prodDesc" rows="2" placeholder="Mô tả..."></textarea>
-            <input type="number" id="prodPrice" placeholder="Giá VNĐ">
-            <textarea id="prodFilesList" rows="2" placeholder="Link file (mỗi dòng 1 link)"></textarea>
-            <button id="addProdBtn" class="admin-btn">➕ Thêm sản phẩm</button>
-            <hr style="margin:12px 0;border-color:#2a3357">
-            <input type="text" id="targetUserName" placeholder="Tên user cần cộng tiền">
-            <input type="number" id="moneyAmount" placeholder="Số tiền">
-            <button id="addMoneyUserBtn" class="admin-btn">💰 Cộng tiền user</button>
-            <button id="selfAddMoneyBtn" class="admin-btn">✨ +100K cho Admin</button>
+            <textarea id="prodDesc" rows="2" placeholder="Mô tả sản phẩm..."></textarea>
+            <input type="number" id="prodPrice" placeholder="Giá (VNĐ)">
+            <div style="margin: 10px 0 5px; font-size: 12px;">📁 Danh sách file tải về:</div>
+            <div id="fileListContainer"></div>
+            <button id="addFileBtn" style="background:#2a3670; border:none; padding:8px; border-radius:10px; color:white; margin-bottom:12px; width:100%;">+ Thêm file</button>
+            <button id="confirmAddProduct" class="admin-btn">✅ Xác nhận thêm sản phẩm</button>
+        </div>
+        <hr style="margin: 16px 0; border-color:#2a3357">
+        <h3 style="margin-bottom: 12px;">💰 Quản lý số dư</h3>
+        <div class="admin-form">
+            <input type="text" id="targetUser" placeholder="Tên người dùng">
+            <input type="number" id="moneyAmount" placeholder="Số tiền cộng">
+            <button id="addMoneyToUser" class="admin-btn">Cộng tiền cho user</button>
+            <button id="selfAddMoney" class="admin-btn">+100,000đ cho Admin</button>
         </div>
     </div>
 
@@ -401,10 +458,10 @@
     const ADMIN_USER = "Storenguyenlongvipios2026";
     const ADMIN_PASS = "Nguyenlongdeveloper2026";
 
-    let users = JSON.parse(localStorage.getItem("nl_users_db")) || {};
-    let products = JSON.parse(localStorage.getItem("nl_products_db")) || [];
-    let purchases = JSON.parse(localStorage.getItem("nl_purchases_db")) || [];
-    let deposits = JSON.parse(localStorage.getItem("nl_deposits_db")) || [];
+    let users = JSON.parse(localStorage.getItem("nl_users")) || {};
+    let products = JSON.parse(localStorage.getItem("nl_products")) || [];
+    let purchases = JSON.parse(localStorage.getItem("nl_purchases")) || [];
+    let deposits = JSON.parse(localStorage.getItem("nl_deposits")) || [];
     let currentUser = null;
 
     function randomCode() {
@@ -414,39 +471,30 @@
     // Khởi tạo dữ liệu mặc định
     if (Object.keys(users).length === 0) {
         users[ADMIN_USER] = {
-            username: ADMIN_USER,
-            password: ADMIN_PASS,
-            isAdmin: true,
-            balance: 999000,
-            customerCode: randomCode(),
-            createdAt: new Date().toISOString()
+            username: ADMIN_USER, password: ADMIN_PASS, isAdmin: true,
+            balance: 999000, customerCode: randomCode(), createdAt: new Date().toISOString()
         };
         users["demoUser"] = {
-            username: "demoUser",
-            password: "demo123",
-            isAdmin: false,
-            balance: 250000,
-            customerCode: randomCode(),
-            createdAt: new Date().toISOString()
+            username: "demoUser", password: "demo123", isAdmin: false,
+            balance: 250000, customerCode: randomCode(), createdAt: new Date().toISOString()
         };
     }
 
     if (products.length === 0) {
         products = [
-            { id: "p1", name: "MUA GÓI TIÊU CHUẨN", price: 150000, desc: "Config / Trải Nghiệm\n- Fix rung tâm cơ bản (50-60%)\n- Chạy tốt trên iOS & Android\n- Cài đặt nhanh gọn", files: ["https://file.demo/config-std.zip"] },
-            { id: "p2", name: "Config Tiêu Chuẩn", price: 350000, desc: "Dành cho leo Rank tâm trung & giải trí.\n- Fix rung tâm tốt (60%)\n- Độ nhạy ổn định, dễ kéo hơn 50%\n- Giảm giật lag nhẹ", files: ["https://file.demo/config-pro.zip"] },
-            { id: "p3", name: "Pro Script Vĩnh Viễn 🎉", price: 500000, desc: "✅ Mở khoá toàn bộ tính năng VIP\n✅ Tối ưu đường truyền, giảm giật lag\n✅ Cập nhật Script miễn phí trọn đời", files: ["https://file.demo/script-pro.zip"] },
-            { id: "p4", name: "CONFIG VIP - LIMITED 🚀", price: 500000, desc: "DÀNH CHO DÂN CHUYÊN / ĐI KÈO TIỀN\n- Bám đầu 99%, nhẹ tâm tuyệt đối\n- Ổn định 100%, No Delay\n- Hỗ trợ update trọn đời", files: ["https://file.demo/vip-limited.zip"] }
+            { id: "p1", name: "MUA GÓI TIÊU CHUẨN", price: 150000, desc: "Config / Trải Nghiệm\n- Fix rung tâm cơ bản (50-60%)\n- Chạy tốt iOS & Android", files: ["https://file.demo/config-std.zip"] },
+            { id: "p2", name: "Config Tiêu Chuẩn", price: 350000, desc: "Leo Rank tâm trung\n- Fix rung tâm tốt (60%)\n- Độ nhạy ổn định", files: ["https://file.demo/config-pro.zip"] },
+            { id: "p3", name: "Pro Script Vĩnh Viễn", price: 500000, desc: "✅ Mở khoá VIP\n✅ Tối ưu đường truyền", files: ["https://file.demo/script-pro.zip"] }
         ];
     }
+    saveAll();
 
     function saveAll() {
-        localStorage.setItem("nl_users_db", JSON.stringify(users));
-        localStorage.setItem("nl_products_db", JSON.stringify(products));
-        localStorage.setItem("nl_purchases_db", JSON.stringify(purchases));
-        localStorage.setItem("nl_deposits_db", JSON.stringify(deposits));
+        localStorage.setItem("nl_users", JSON.stringify(users));
+        localStorage.setItem("nl_products", JSON.stringify(products));
+        localStorage.setItem("nl_purchases", JSON.stringify(purchases));
+        localStorage.setItem("nl_deposits", JSON.stringify(deposits));
     }
-    saveAll();
 
     function toast(msg, isErr = false) {
         const t = document.getElementById("toastMsg");
@@ -457,38 +505,37 @@
     }
 
     function escapeHtml(str) {
-        return String(str).replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
+        return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
     }
 
-    // Render sản phẩm
-    function renderProducts() {
-        const container = document.getElementById("productsContainer");
-        if (!container || !currentUser) return;
-        if (products.length === 0) {
-            container.innerHTML = "<div style='text-align:center;padding:20px'>Chưa có sản phẩm</div>";
-            return;
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        if (pageId === 'homePage' && currentUser) {
+            renderProducts();
+            renderPurchased();
+            updateBalance();
         }
+        if (pageId === 'accountPage') renderAccountInfo();
+        if (pageId === 'depositHistoryPage') renderDepositHistory();
+        if (pageId === 'purchaseHistoryPage') renderPurchaseHistory();
+    }
+
+    function renderProducts() {
+        const container = document.getElementById("productsList");
+        if (!container) return;
         container.innerHTML = products.map(p => `
             <div class="product-card">
-                <div class="product-title">${escapeHtml(p.name)}</div>
+                <div class="product-name">${escapeHtml(p.name)}</div>
                 <div class="product-price">${p.price.toLocaleString()}đ</div>
-                <div class="product-description">${escapeHtml(p.desc).replace(/\n/g, '<br>')}</div>
-                <button class="buy-button" data-id="${p.id}" data-price="${p.price}" data-name="${escapeHtml(p.name)}" data-files='${JSON.stringify(p.files)}'>MUA NGAY</button>
+                <div class="product-desc">${escapeHtml(p.desc).replace(/\n/g, '<br>')}</div>
+                <button class="buy-btn" data-id="${p.id}" data-price="${p.price}" data-name="${escapeHtml(p.name)}" data-files='${JSON.stringify(p.files)}'>MUA NGAY</button>
             </div>
         `).join('');
-
-        document.querySelectorAll('.buy-button').forEach(btn => {
+        document.querySelectorAll('.buy-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const price = parseInt(btn.dataset.price);
-                if (currentUser.balance < price) {
-                    toast(`Số dư không đủ! Cần ${price.toLocaleString()}đ`, true);
-                    return;
-                }
+                if (currentUser.balance < price) { toast(`Số dư không đủ! Cần ${price.toLocaleString()}đ`, true); return; }
                 currentUser.balance -= price;
                 users[currentUser.username].balance = currentUser.balance;
                 purchases.push({
@@ -507,159 +554,130 @@
     }
 
     function renderPurchased() {
-        const container = document.getElementById("purchasedContainer");
-        if (!container || !currentUser) return;
-        const my = purchases.filter(p => p.username === currentUser.username);
-        if (my.length === 0) {
-            container.innerHTML = "Chưa có sản phẩm nào.";
-            return;
-        }
+        const container = document.getElementById("purchasedList");
+        if (!container) return;
+        const my = purchases.filter(p => p.username === currentUser?.username);
+        if (my.length === 0) { container.innerHTML = "Chưa có sản phẩm nào."; return; }
         container.innerHTML = my.map(item => `
             <div class="purchased-item">
                 <strong>${escapeHtml(item.productName)}</strong> - ${new Date(item.boughtAt).toLocaleString()}
-                <div class="file-list">
-                    <i class="fas fa-paperclip"></i> Link tải:<br>
-                    ${item.files.map(f => `<a href="${f}" target="_blank" style="color:#FFD966;">${escapeHtml(f)}</a>`).join('<br>')}
-                </div>
+                <div class="file-list"><i class="fas fa-paperclip"></i> Link tải:<br> ${item.files.map(f => `<a href="${f}" target="_blank" style="color:#FFD966;">${escapeHtml(f)}</a>`).join('<br>')}</div>
             </div>
         `).join('');
     }
 
     function updateBalance() {
-        const bal = document.getElementById("balanceValue");
+        const bal = document.getElementById("balanceAmount");
         if (bal && currentUser) bal.innerText = currentUser.balance.toLocaleString() + "đ";
     }
 
+    function renderAccountInfo() {
+        if (!currentUser) return;
+        document.getElementById("accountInfo").innerHTML = `
+            <div class="info-row"><span>👤 Tài khoản:</span><span>${currentUser.username}</span></div>
+            <div class="info-row"><span>🎫 Mã khách hàng:</span><span>${currentUser.customerCode}</span></div>
+            <div class="info-row"><span>📅 Ngày tạo:</span><span>${new Date(currentUser.createdAt).toLocaleString()}</span></div>
+            <div class="info-row"><span>💰 Số dư hiện tại:</span><span style="color:#FFD966">${currentUser.balance.toLocaleString()}đ</span></div>
+        `;
+    }
+
+    function renderDepositHistory() {
+        const his = deposits.filter(d => d.username === currentUser?.username);
+        if (his.length === 0) { document.getElementById("depositHistoryList").innerHTML = "Chưa có lịch sử nạp."; return; }
+        document.getElementById("depositHistoryList").innerHTML = his.map(h => `
+            <div class="info-row"><span>${h.method}</span><span>${h.amount.toLocaleString()}đ - ${h.status}</span></div>
+            <div style="font-size:11px; color:#8f9bb3; margin-bottom:10px;">${new Date(h.timestamp).toLocaleString()}</div>
+        `).join('');
+    }
+
+    function renderPurchaseHistory() {
+        const his = purchases.filter(p => p.username === currentUser?.username);
+        if (his.length === 0) { document.getElementById("purchaseHistoryList").innerHTML = "Chưa mua sản phẩm nào."; return; }
+        document.getElementById("purchaseHistoryList").innerHTML = his.map(p => `
+            <div class="purchased-item">
+                <strong>${escapeHtml(p.productName)}</strong>
+                <div style="font-size:11px;">${new Date(p.boughtAt).toLocaleString()}</div>
+            </div>
+        `).join('');
+    }
+
     // Nạp tiền
-    function handleTopUp() {
-        if (!currentUser) { toast("Đăng nhập trước", true); return; }
-        const method = confirm("◉ OK = ATM (Admin xử lý thủ công)\n◉ Cancel = Thẻ cào (AutoCard1s)");
-        if (method) {
-            let amount = prompt("Số tiền nạp ATM:", "100000");
-            if (amount && !isNaN(parseInt(amount))) {
-                deposits.push({ username: currentUser.username, amount: parseInt(amount), method: "ATM", status: "Chờ duyệt", timestamp: new Date().toISOString() });
-                saveAll();
-                toast("Yêu cầu nạp ATM đã ghi nhận, admin xử lý.");
-            }
-        } else {
-            let code = prompt("Mã thẻ (Code):");
-            let serial = prompt("Serial thẻ:");
-            let money = prompt("Mệnh giá:");
-            if (code && serial && money && !isNaN(parseInt(money))) {
-                if (code.toLowerCase().includes("error") || serial.toLowerCase().includes("error")) {
-                    deposits.push({ username: currentUser.username, amount: parseInt(money), method: "Thẻ cào", status: "Thất bại", timestamp: new Date().toISOString() });
-                    saveAll();
-                    toast("Thẻ lỗi! Sai mã/serial.", true);
-                } else {
-                    currentUser.balance += parseInt(money);
-                    users[currentUser.username].balance = currentUser.balance;
-                    deposits.push({ username: currentUser.username, amount: parseInt(money), method: "Thẻ cào Auto", status: "Thành công", timestamp: new Date().toISOString() });
-                    saveAll();
-                    toast(`Nạp thẻ thành công! +${parseInt(money).toLocaleString()}đ`);
-                    renderProducts();
-                    updateBalance();
-                }
-            } else toast("Thông tin không hợp lệ", true);
-        }
-    }
-
-    // ===== AUTH =====
-    let isLogin = true;
-    function toggleMode() {
-        isLogin = !isLogin;
-        const title = document.getElementById("authTitle");
-        const btn = document.getElementById("submitAuth");
-        const switchMsg = document.getElementById("switchMsg");
-        const toggleLink = document.getElementById("toggleMode");
-        const forgot = document.getElementById("forgotLink");
-        if (isLogin) {
-            title.innerText = "Đăng Nhập";
-            btn.innerText = "Đăng Nhập";
-            switchMsg.innerText = "Bạn không có tài khoản?";
-            toggleLink.innerText = "Đăng ký";
-            forgot.style.display = "block";
-        } else {
-            title.innerText = "Đăng Ký";
-            btn.innerText = "Đăng Ký";
-            switchMsg.innerText = "Đã có tài khoản?";
-            toggleLink.innerText = "Đăng nhập";
-            forgot.style.display = "none";
-        }
-    }
-
-    function handleAuth() {
-        const username = document.getElementById("loginUser").value.trim();
-        const password = document.getElementById("loginPass").value.trim();
-        const captcha = document.getElementById("captchaCheck").checked;
-        if (!username || !password) { toast("Vui lòng nhập đầy đủ", true); return; }
-        if (!captcha) { toast("Xác nhận bạn không phải người máy", true); return; }
-
-        if (isLogin) {
-            if (users[username] && users[username].password === password) {
-                currentUser = users[username];
-                localStorage.setItem("nl_session", username);
-                toast(`Chào mừng ${username}`);
-                switchToMain();
-            } else {
-                toast("Sai tên đăng nhập hoặc mật khẩu", true);
-            }
-        } else {
-            if (users[username]) { toast("Tên đã tồn tại", true); return; }
-            const newUser = {
-                username, password, isAdmin: false, balance: 50000,
-                customerCode: randomCode(), createdAt: new Date().toISOString()
-            };
-            users[username] = newUser;
+    function atmTopup() {
+        let amount = prompt("Nhập số tiền cần nạp (ATM):", "100000");
+        if (amount && !isNaN(parseInt(amount))) {
+            deposits.push({ username: currentUser.username, amount: parseInt(amount), method: "ATM", status: "Chờ xử lý", timestamp: new Date().toISOString() });
             saveAll();
-            currentUser = newUser;
-            localStorage.setItem("nl_session", username);
-            toast("Đăng ký thành công! +50,000đ");
-            switchToMain();
+            toast("Yêu cầu nạp ATM đã ghi nhận, admin sẽ xử lý thủ công.");
         }
     }
 
-    function switchToMain() {
-        document.getElementById("authScreen").style.display = "none";
-        document.getElementById("mainScreen").style.display = "block";
-        renderProducts();
-        renderPurchased();
-        updateBalance();
-        if (currentUser && currentUser.isAdmin) {
-            document.getElementById("adminPanel").style.display = "block";
-        } else {
-            document.getElementById("adminPanel").style.display = "none";
+    function cardTopup() {
+        let code = prompt("Mã thẻ (Code):");
+        let serial = prompt("Serial thẻ:");
+        let money = prompt("Mệnh giá thẻ (VNĐ):");
+        if (code && serial && money && !isNaN(parseInt(money))) {
+            if (code.toLowerCase().includes("error") || serial.toLowerCase().includes("error")) {
+                deposits.push({ username: currentUser.username, amount: parseInt(money), method: "Thẻ cào", status: "Thất bại", timestamp: new Date().toISOString() });
+                saveAll();
+                toast("Thẻ lỗi! Sai mã hoặc serial.", true);
+            } else {
+                currentUser.balance += parseInt(money);
+                users[currentUser.username].balance = currentUser.balance;
+                deposits.push({ username: currentUser.username, amount: parseInt(money), method: "Thẻ cào Auto", status: "Thành công", timestamp: new Date().toISOString() });
+                saveAll();
+                toast(`Nạp thẻ thành công! +${parseInt(money).toLocaleString()}đ`);
+                updateBalance();
+                renderProducts();
+            }
         }
     }
 
-    function logout() {
-        localStorage.removeItem("nl_session");
-        location.reload();
+    // Admin: thêm sản phẩm với nhiều file
+    let tempFiles = [];
+    function renderFileInputs() {
+        const container = document.getElementById("fileListContainer");
+        container.innerHTML = tempFiles.map((f, idx) => `
+            <div class="file-row">
+                <input type="text" value="${escapeHtml(f)}" placeholder="Link file" id="file_${idx}">
+                <button onclick="removeFile(${idx})"><i class="fas fa-trash"></i></button>
+            </div>
+        `).join('');
     }
+    window.addFile = function() { tempFiles.push(""); renderFileInputs(); };
+    window.removeFile = function(idx) { tempFiles.splice(idx, 1); renderFileInputs(); };
+    window.updateFile = function(idx, val) { tempFiles[idx] = val; };
 
-    // Admin
-    function addProduct() {
+    function confirmAddProduct() {
         const name = document.getElementById("prodName").value.trim();
         const desc = document.getElementById("prodDesc").value.trim();
         const price = parseInt(document.getElementById("prodPrice").value);
-        const filesRaw = document.getElementById("prodFilesList").value;
-        if (!name || isNaN(price) || price <= 0) { toast("Tên và giá hợp lệ", true); return; }
-        const fileArr = filesRaw.split("\n").filter(f => f.trim() !== "");
-        products.push({
+        // Lấy file từ input
+        const files = [];
+        for (let i = 0; i < tempFiles.length; i++) {
+            const input = document.getElementById(`file_${i}`);
+            if (input && input.value.trim()) files.push(input.value.trim());
+        }
+        if (!name || isNaN(price) || price <= 0) { toast("Tên và giá không hợp lệ", true); return; }
+        const newProduct = {
             id: "p" + Date.now(),
-            name, price, desc: desc || "Gói cấu hình cao cấp",
-            files: fileArr.length ? fileArr : ["https://default.link"]
-        });
+            name: name,
+            price: price,
+            desc: desc || "Gói cấu hình cao cấp",
+            files: files.length ? files : ["https://default-link.com/config.zip"]
+        };
+        products.push(newProduct);
         saveAll();
         renderProducts();
         toast("Thêm sản phẩm thành công!");
         document.getElementById("prodName").value = "";
         document.getElementById("prodDesc").value = "";
         document.getElementById("prodPrice").value = "";
-        document.getElementById("prodFilesList").value = "";
+        tempFiles = [];
+        renderFileInputs();
     }
 
     function addMoneyToUser() {
-        const target = document.getElementById("targetUserName").value.trim();
+        const target = document.getElementById("targetUser").value.trim();
         const amount = parseInt(document.getElementById("moneyAmount").value);
         if (!users[target] || isNaN(amount) || amount <= 0) { toast("User không tồn tại", true); return; }
         users[target].balance += amount;
@@ -683,47 +701,89 @@
         } else toast("Không có quyền", true);
     }
 
-    // ===== GÁN SỰ KIỆN =====
-    document.getElementById("toggleMode")?.addEventListener("click", toggleMode);
-    document.getElementById("submitAuth")?.addEventListener("click", handleAuth);
-    document.getElementById("logoutNav")?.addEventListener("click", logout);
-    document.getElementById("topupNav")?.addEventListener("click", handleTopUp);
-    document.getElementById("addProdBtn")?.addEventListener("click", addProduct);
-    document.getElementById("addMoneyUserBtn")?.addEventListener("click", addMoneyToUser);
-    document.getElementById("selfAddMoneyBtn")?.addEventListener("click", selfAddMoney);
+    // Auth
+    function handleLogin() {
+        const username = document.getElementById("loginUsername").value.trim();
+        const password = document.getElementById("loginPassword").value.trim();
+        const captcha = document.getElementById("captchaCheck").checked;
+        if (!username || !password) { toast("Nhập đầy đủ thông tin", true); return; }
+        if (!captcha) { toast("Xác nhận bạn không phải người máy", true); return; }
+        if (users[username] && users[username].password === password) {
+            currentUser = users[username];
+            localStorage.setItem("nl_session", username);
+            toast(`Chào mừng ${username}`);
+            showPage('homePage');
+            renderProducts();
+            renderPurchased();
+            updateBalance();
+        } else { toast("Sai tên đăng nhập hoặc mật khẩu", true); }
+    }
 
-    document.getElementById("accInfo")?.addEventListener("click", () => {
-        if (currentUser) alert(`👤 TK: ${currentUser.username}\n🎫 Mã: ${currentUser.customerCode}\n📅 Tạo: ${new Date(currentUser.createdAt).toLocaleString()}\n💰 Dư: ${currentUser.balance.toLocaleString()}đ`);
-        else toast("Chưa đăng nhập", true);
-    });
-    document.getElementById("depositNav")?.addEventListener("click", () => {
-        if (!currentUser) return;
-        const his = deposits.filter(d => d.username === currentUser.username);
-        if (his.length === 0) alert("Chưa có lịch sử nạp");
-        else alert(his.map(h => `${h.method} - ${h.amount.toLocaleString()}đ - ${h.status} - ${new Date(h.timestamp).toLocaleString()}`).join("\n"));
-    });
-    document.getElementById("purchaseNav")?.addEventListener("click", () => {
-        if (!currentUser) return;
-        const his = purchases.filter(p => p.username === currentUser.username);
-        if (his.length === 0) alert("Chưa mua sản phẩm");
-        else alert(his.map(p => `${p.productName} - ${new Date(p.boughtAt).toLocaleString()}`).join("\n"));
-    });
-    document.getElementById("adminNav")?.addEventListener("click", () => {
-        if (currentUser && currentUser.isAdmin) document.getElementById("adminPanel").style.display = "block";
+    function handleRegister() {
+        const username = document.getElementById("regUsername").value.trim();
+        const password = document.getElementById("regPassword").value.trim();
+        const captcha = document.getElementById("regCaptcha").checked;
+        if (!username || !password) { toast("Nhập đầy đủ thông tin", true); return; }
+        if (!captcha) { toast("Xác nhận bạn không phải người máy", true); return; }
+        if (users[username]) { toast("Tên đã tồn tại", true); return; }
+        users[username] = {
+            username, password, isAdmin: false, balance: 50000,
+            customerCode: randomCode(), createdAt: new Date().toISOString()
+        };
+        saveAll();
+        currentUser = users[username];
+        localStorage.setItem("nl_session", username);
+        toast("Đăng ký thành công! +50,000đ");
+        showPage('homePage');
+        renderProducts();
+        renderPurchased();
+        updateBalance();
+    }
+
+    function logout() {
+        localStorage.removeItem("nl_session");
+        location.reload();
+    }
+
+    // Gán sự kiện
+    document.getElementById("submitLogin")?.addEventListener("click", handleLogin);
+    document.getElementById("submitRegister")?.addEventListener("click", handleRegister);
+    document.getElementById("showRegister")?.addEventListener("click", () => showPage('registerPage'));
+    document.getElementById("showLogin")?.addEventListener("click", () => showPage('loginPage'));
+    document.getElementById("atmTopup")?.addEventListener("click", atmTopup);
+    document.getElementById("cardTopup")?.addEventListener("click", cardTopup);
+    document.getElementById("confirmAddProduct")?.addEventListener("click", confirmAddProduct);
+    document.getElementById("addFileBtn")?.addEventListener("click", () => addFile());
+    document.getElementById("addMoneyToUser")?.addEventListener("click", addMoneyToUser);
+    document.getElementById("selfAddMoney")?.addEventListener("click", selfAddMoney);
+    document.getElementById("navLogout")?.addEventListener("click", logout);
+
+    document.getElementById("navHome")?.addEventListener("click", () => showPage('homePage'));
+    document.getElementById("navAccount")?.addEventListener("click", () => showPage('accountPage'));
+    document.getElementById("navTopup")?.addEventListener("click", () => showPage('topupPage'));
+    document.getElementById("navDepositHistory")?.addEventListener("click", () => showPage('depositHistoryPage'));
+    document.getElementById("navPurchaseHistory")?.addEventListener("click", () => showPage('purchaseHistoryPage'));
+    document.getElementById("navAdmin")?.addEventListener("click", () => {
+        if (currentUser?.isAdmin) showPage('adminPage');
         else toast("Không có quyền admin", true);
     });
 
     // Menu dropdown
-    const menu = document.getElementById("menuBtn");
-    const drop = document.getElementById("dropdown");
-    menu?.addEventListener("click", (e) => { e.stopPropagation(); drop.classList.toggle("show"); });
-    document.addEventListener("click", (e) => { if (!drop.contains(e.target) && e.target !== menu) drop.classList.remove("show"); });
+    const menuBtn = document.getElementById("menuBtn");
+    const dropdown = document.getElementById("dropdown");
+    menuBtn?.addEventListener("click", (e) => { e.stopPropagation(); dropdown.classList.toggle("show"); });
+    document.addEventListener("click", (e) => { if (!dropdown.contains(e.target) && e.target !== menuBtn) dropdown.classList.remove("show"); });
 
-    // Session
+    // Session check
     const session = localStorage.getItem("nl_session");
     if (session && users[session]) {
         currentUser = users[session];
-        switchToMain();
+        showPage('homePage');
+        renderProducts();
+        renderPurchased();
+        updateBalance();
+    } else {
+        showPage('loginPage');
     }
 </script>
 </body>
