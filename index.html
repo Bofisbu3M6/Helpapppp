@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>STORE NGUYENLONGIOS | CONFIG • AIMLOCK</title>
+    <title>STORE NGUYENLONGIOS | CONFIG • AIMLOCK IOS/ADR</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -39,6 +39,9 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #ffd96630;
+        }
+        .logo {
+            cursor: pointer;
         }
         .logo h1 {
             font-size: 18px;
@@ -179,10 +182,12 @@
             padding: 16px;
             margin-bottom: 16px;
             border: 1px solid #2a345b;
+            position: relative;
         }
         .product-name {
             font-size: 17px;
             font-weight: 800;
+            padding-right: 60px;
         }
         .product-price {
             font-size: 24px;
@@ -207,6 +212,19 @@
             cursor: pointer;
             color: white;
         }
+        .delete-product {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #8b2c2c;
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 14px;
+        }
 
         /* Balance card */
         .balance-card {
@@ -220,7 +238,7 @@
             border: 1px solid #ffd96630;
         }
 
-        /* Admin form thêm sản phẩm */
+        /* Admin form */
         .admin-form {
             background: #0c1022;
             border-radius: 20px;
@@ -264,20 +282,10 @@
             cursor: pointer;
             margin-top: 8px;
         }
+        .danger-btn {
+            background: #8b2c2c;
+        }
 
-        .purchased-item {
-            background: #12172e;
-            border-radius: 16px;
-            padding: 12px;
-            margin-bottom: 12px;
-        }
-        .file-list {
-            background: #00000040;
-            padding: 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            margin-top: 8px;
-        }
         .info-row {
             display: flex;
             justify-content: space-between;
@@ -308,19 +316,25 @@
             background: transparent;
             border: none;
             color: #FFD966;
-            font-size: 20px;
+            font-size: 16px;
             cursor: pointer;
             margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
+        .edit-icon {
+            cursor: pointer;
+            color: #FFD966;
+            margin-left: 10px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
 <div class="app" id="app">
     <div class="header">
-        <div class="logo">
+        <div class="logo" id="editAppBtn">
             <h1 id="appName">STORE NGUYENLONGIOS</h1>
             <p id="appSubText">Config • Proxy • Script • MMO</p>
         </div>
@@ -384,17 +398,13 @@
         </div>
     </div>
 
-    <!-- Trang chủ (sau login) -->
+    <!-- Trang chủ (chỉ hiển thị sản phẩm và số dư) -->
     <div id="homePage" class="page">
         <div class="balance-card">
             <i class="fas fa-wallet" style="color:#FFD966"></i>
             <span>Số dư: </span><strong id="balanceAmount">0đ</strong>
         </div>
         <div id="productsList"></div>
-        <div style="margin-top: 20px;">
-            <div style="margin-bottom: 10px;"><i class="fas fa-download"></i> Sản phẩm đã mua</div>
-            <div id="purchasedList"></div>
-        </div>
     </div>
 
     <!-- Trang thông tin tài khoản -->
@@ -426,7 +436,16 @@
     <!-- Trang quản trị viên -->
     <div id="adminPage" class="page">
         <button class="back-btn" onclick="showPage('homePage')"><i class="fas fa-arrow-left"></i> Quay lại</button>
-        <h3 style="margin-bottom: 16px;">👑 Thêm sản phẩm mới</h3>
+        
+        <!-- Chỉnh sửa thông tin app -->
+        <div class="admin-form">
+            <h3 style="margin-bottom: 12px;">📝 Chỉnh sửa thông tin App</h3>
+            <input type="text" id="editAppName" placeholder="Tên App">
+            <input type="text" id="editAppSub" placeholder="Mô tả phụ">
+            <button id="saveAppInfoBtn" class="admin-btn">💾 Lưu thông tin App</button>
+        </div>
+
+        <h3 style="margin-bottom: 12px;">➕ Thêm sản phẩm mới</h3>
         <div class="admin-form">
             <input type="text" id="prodName" placeholder="Tên sản phẩm">
             <textarea id="prodDesc" rows="2" placeholder="Mô tả sản phẩm..."></textarea>
@@ -436,6 +455,10 @@
             <button id="addFileBtn" style="background:#2a3670; border:none; padding:8px; border-radius:10px; color:white; margin-bottom:12px; width:100%;">+ Thêm file</button>
             <button id="confirmAddProduct" class="admin-btn">✅ Xác nhận thêm sản phẩm</button>
         </div>
+
+        <h3 style="margin-bottom: 12px;">🗑️ Quản lý sản phẩm (Xoá)</h3>
+        <div id="adminProductList" style="margin-bottom: 20px;"></div>
+
         <hr style="margin: 16px 0; border-color:#2a3357">
         <h3 style="margin-bottom: 12px;">💰 Quản lý số dư</h3>
         <div class="admin-form">
@@ -463,6 +486,12 @@
     let purchases = JSON.parse(localStorage.getItem("nl_purchases")) || [];
     let deposits = JSON.parse(localStorage.getItem("nl_deposits")) || [];
     let currentUser = null;
+
+    // Thông tin app
+    let appInfo = JSON.parse(localStorage.getItem("nl_appinfo")) || {
+        name: "STORE NGUYENLONGIOS",
+        subText: "Config • Proxy • Script • MMO"
+    };
 
     function randomCode() {
         return "NL" + Math.random().toString(36).substring(2, 10).toUpperCase();
@@ -494,6 +523,12 @@
         localStorage.setItem("nl_products", JSON.stringify(products));
         localStorage.setItem("nl_purchases", JSON.stringify(purchases));
         localStorage.setItem("nl_deposits", JSON.stringify(deposits));
+        localStorage.setItem("nl_appinfo", JSON.stringify(appInfo));
+    }
+
+    function updateAppUI() {
+        document.getElementById("appName").innerText = appInfo.name;
+        document.getElementById("appSubText").innerText = appInfo.subText;
     }
 
     function toast(msg, isErr = false) {
@@ -513,12 +548,16 @@
         document.getElementById(pageId).classList.add('active');
         if (pageId === 'homePage' && currentUser) {
             renderProducts();
-            renderPurchased();
             updateBalance();
         }
         if (pageId === 'accountPage') renderAccountInfo();
         if (pageId === 'depositHistoryPage') renderDepositHistory();
         if (pageId === 'purchaseHistoryPage') renderPurchaseHistory();
+        if (pageId === 'adminPage' && currentUser?.isAdmin) {
+            renderAdminProductList();
+            document.getElementById("editAppName").value = appInfo.name;
+            document.getElementById("editAppSub").value = appInfo.subText;
+        }
     }
 
     function renderProducts() {
@@ -532,6 +571,7 @@
                 <button class="buy-btn" data-id="${p.id}" data-price="${p.price}" data-name="${escapeHtml(p.name)}" data-files='${JSON.stringify(p.files)}'>MUA NGAY</button>
             </div>
         `).join('');
+        
         document.querySelectorAll('.buy-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const price = parseInt(btn.dataset.price);
@@ -545,7 +585,6 @@
                     boughtAt: new Date().toISOString()
                 });
                 saveAll();
-                renderPurchased();
                 renderProducts();
                 updateBalance();
                 toast(`✅ Mua thành công ${btn.dataset.name}!`);
@@ -553,17 +592,29 @@
         });
     }
 
-    function renderPurchased() {
-        const container = document.getElementById("purchasedList");
+    function renderAdminProductList() {
+        const container = document.getElementById("adminProductList");
         if (!container) return;
-        const my = purchases.filter(p => p.username === currentUser?.username);
-        if (my.length === 0) { container.innerHTML = "Chưa có sản phẩm nào."; return; }
-        container.innerHTML = my.map(item => `
-            <div class="purchased-item">
-                <strong>${escapeHtml(item.productName)}</strong> - ${new Date(item.boughtAt).toLocaleString()}
-                <div class="file-list"><i class="fas fa-paperclip"></i> Link tải:<br> ${item.files.map(f => `<a href="${f}" target="_blank" style="color:#FFD966;">${escapeHtml(f)}</a>`).join('<br>')}</div>
+        container.innerHTML = products.map(p => `
+            <div class="product-card">
+                <div class="product-name">${escapeHtml(p.name)}</div>
+                <div class="product-price">${p.price.toLocaleString()}đ</div>
+                <button class="delete-product" data-id="${p.id}"><i class="fas fa-trash"></i></button>
             </div>
         `).join('');
+        
+        document.querySelectorAll('.delete-product').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (confirm("Xoá sản phẩm này?")) {
+                    const id = btn.dataset.id;
+                    products = products.filter(p => p.id !== id);
+                    saveAll();
+                    renderProducts();
+                    renderAdminProductList();
+                    toast("Đã xoá sản phẩm!");
+                }
+            });
+        });
     }
 
     function updateBalance() {
@@ -594,9 +645,13 @@
         const his = purchases.filter(p => p.username === currentUser?.username);
         if (his.length === 0) { document.getElementById("purchaseHistoryList").innerHTML = "Chưa mua sản phẩm nào."; return; }
         document.getElementById("purchaseHistoryList").innerHTML = his.map(p => `
-            <div class="purchased-item">
-                <strong>${escapeHtml(p.productName)}</strong>
-                <div style="font-size:11px;">${new Date(p.boughtAt).toLocaleString()}</div>
+            <div class="product-card" style="margin-bottom:12px;">
+                <div class="product-name">${escapeHtml(p.productName)}</div>
+                <div class="file-list" style="margin-top:8px;">
+                    <i class="fas fa-paperclip"></i> Link tải:<br>
+                    ${p.files.map(f => `<a href="${f}" target="_blank" style="color:#FFD966;">${escapeHtml(f)}</a>`).join('<br>')}
+                </div>
+                <div style="font-size:10px; color:#8f9bb3; margin-top:8px;">${new Date(p.boughtAt).toLocaleString()}</div>
             </div>
         `).join('');
     }
@@ -638,7 +693,7 @@
         const container = document.getElementById("fileListContainer");
         container.innerHTML = tempFiles.map((f, idx) => `
             <div class="file-row">
-                <input type="text" value="${escapeHtml(f)}" placeholder="Link file" id="file_${idx}">
+                <input type="text" value="${escapeHtml(f)}" placeholder="Link file" id="file_${idx}" onchange="updateFile(${idx}, this.value)">
                 <button onclick="removeFile(${idx})"><i class="fas fa-trash"></i></button>
             </div>
         `).join('');
@@ -651,12 +706,7 @@
         const name = document.getElementById("prodName").value.trim();
         const desc = document.getElementById("prodDesc").value.trim();
         const price = parseInt(document.getElementById("prodPrice").value);
-        // Lấy file từ input
-        const files = [];
-        for (let i = 0; i < tempFiles.length; i++) {
-            const input = document.getElementById(`file_${i}`);
-            if (input && input.value.trim()) files.push(input.value.trim());
-        }
+        const files = tempFiles.filter(f => f.trim() !== "");
         if (!name || isNaN(price) || price <= 0) { toast("Tên và giá không hợp lệ", true); return; }
         const newProduct = {
             id: "p" + Date.now(),
@@ -668,12 +718,23 @@
         products.push(newProduct);
         saveAll();
         renderProducts();
+        renderAdminProductList();
         toast("Thêm sản phẩm thành công!");
         document.getElementById("prodName").value = "";
         document.getElementById("prodDesc").value = "";
         document.getElementById("prodPrice").value = "";
         tempFiles = [];
         renderFileInputs();
+    }
+
+    function saveAppInfo() {
+        const newName = document.getElementById("editAppName").value.trim();
+        const newSub = document.getElementById("editAppSub").value.trim();
+        if (newName) appInfo.name = newName;
+        if (newSub) appInfo.subText = newSub;
+        saveAll();
+        updateAppUI();
+        toast("Đã cập nhật thông tin App!");
     }
 
     function addMoneyToUser() {
@@ -714,7 +775,6 @@
             toast(`Chào mừng ${username}`);
             showPage('homePage');
             renderProducts();
-            renderPurchased();
             updateBalance();
         } else { toast("Sai tên đăng nhập hoặc mật khẩu", true); }
     }
@@ -736,7 +796,6 @@
         toast("Đăng ký thành công! +50,000đ");
         showPage('homePage');
         renderProducts();
-        renderPurchased();
         updateBalance();
     }
 
@@ -754,9 +813,14 @@
     document.getElementById("cardTopup")?.addEventListener("click", cardTopup);
     document.getElementById("confirmAddProduct")?.addEventListener("click", confirmAddProduct);
     document.getElementById("addFileBtn")?.addEventListener("click", () => addFile());
+    document.getElementById("saveAppInfoBtn")?.addEventListener("click", saveAppInfo);
     document.getElementById("addMoneyToUser")?.addEventListener("click", addMoneyToUser);
     document.getElementById("selfAddMoney")?.addEventListener("click", selfAddMoney);
     document.getElementById("navLogout")?.addEventListener("click", logout);
+    document.getElementById("editAppBtn")?.addEventListener("click", () => {
+        if (currentUser?.isAdmin) showPage('adminPage');
+        else toast("Chỉ admin mới chỉnh sửa được", true);
+    });
 
     document.getElementById("navHome")?.addEventListener("click", () => showPage('homePage'));
     document.getElementById("navAccount")?.addEventListener("click", () => showPage('accountPage'));
@@ -775,12 +839,12 @@
     document.addEventListener("click", (e) => { if (!dropdown.contains(e.target) && e.target !== menuBtn) dropdown.classList.remove("show"); });
 
     // Session check
+    updateAppUI();
     const session = localStorage.getItem("nl_session");
     if (session && users[session]) {
         currentUser = users[session];
         showPage('homePage');
         renderProducts();
-        renderPurchased();
         updateBalance();
     } else {
         showPage('loginPage');
