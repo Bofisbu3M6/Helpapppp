@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>STORE NGUYENLONGIOS | CONFIG • AIMLOCK IOS/ADR</title>
+    <title>STORE NGUYENLONGIOS | Config & Proxy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -31,7 +31,6 @@
             flex-direction: column;
         }
 
-        /* Header */
         .header {
             background: #0c1022;
             padding: 18px 20px;
@@ -70,7 +69,6 @@
             border: 1px solid #ffd96630;
         }
 
-        /* Dropdown */
         .dropdown {
             position: absolute;
             top: 75px;
@@ -108,7 +106,6 @@
             background: #1f2a4a;
         }
 
-        /* Nội dung trang */
         .page {
             padding: 24px 20px;
             flex: 1;
@@ -118,7 +115,6 @@
             display: block;
         }
 
-        /* Form đăng nhập */
         .auth-title {
             font-size: 28px;
             font-weight: 700;
@@ -175,7 +171,6 @@
             margin-left: 6px;
         }
 
-        /* Product card */
         .product-card {
             background: #11172b;
             border-radius: 20px;
@@ -226,7 +221,6 @@
             font-size: 14px;
         }
 
-        /* Balance card */
         .balance-card {
             background: #0a0e1c;
             padding: 12px 18px;
@@ -238,7 +232,6 @@
             border: 1px solid #ffd96630;
         }
 
-        /* Admin form */
         .admin-form {
             background: #0c1022;
             border-radius: 20px;
@@ -258,18 +251,37 @@
             display: flex;
             gap: 10px;
             margin-bottom: 10px;
+            align-items: center;
+            flex-wrap: wrap;
         }
-        .file-row input {
+        .file-row .file-name {
             flex: 1;
-            margin-bottom: 0;
+            background: #161e38;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            word-break: break-all;
         }
         .file-row button {
             background: #2a3670;
             border: none;
-            padding: 0 15px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+        }
+        .file-row .remove-file {
+            background: #8b2c2c;
+        }
+        .file-upload-btn {
+            background: #2a3670;
+            border: none;
+            padding: 10px;
             border-radius: 12px;
             color: white;
             cursor: pointer;
+            margin-bottom: 12px;
+            width: 100%;
         }
         .admin-btn {
             background: #2a3670;
@@ -323,11 +335,18 @@
             align-items: center;
             gap: 8px;
         }
-        .edit-icon {
-            cursor: pointer;
+        .file-list {
+            margin-top: 8px;
+        }
+        .file-link {
+            display: inline-block;
+            background: #2a3670;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            margin: 2px;
+            text-decoration: none;
             color: #FFD966;
-            margin-left: 10px;
-            font-size: 14px;
         }
     </style>
 </head>
@@ -354,7 +373,7 @@
 
     <!-- Trang đăng nhập -->
     <div id="loginPage" class="page active">
-        <div class="auth-title" id="loginTitle">Đăng Nhập</div>
+        <div class="auth-title">Đăng Nhập</div>
         <div class="input-field">
             <label>Tên đăng nhập</label>
             <input type="text" id="loginUsername" placeholder="Enter Username">
@@ -398,7 +417,7 @@
         </div>
     </div>
 
-    <!-- Trang chủ (chỉ hiển thị sản phẩm và số dư) -->
+    <!-- Trang chủ -->
     <div id="homePage" class="page">
         <div class="balance-card">
             <i class="fas fa-wallet" style="color:#FFD966"></i>
@@ -437,7 +456,6 @@
     <div id="adminPage" class="page">
         <button class="back-btn" onclick="showPage('homePage')"><i class="fas fa-arrow-left"></i> Quay lại</button>
         
-        <!-- Chỉnh sửa thông tin app -->
         <div class="admin-form">
             <h3 style="margin-bottom: 12px;">📝 Chỉnh sửa thông tin App</h3>
             <input type="text" id="editAppName" placeholder="Tên App">
@@ -450,9 +468,10 @@
             <input type="text" id="prodName" placeholder="Tên sản phẩm">
             <textarea id="prodDesc" rows="2" placeholder="Mô tả sản phẩm..."></textarea>
             <input type="number" id="prodPrice" placeholder="Giá (VNĐ)">
-            <div style="margin: 10px 0 5px; font-size: 12px;">📁 Danh sách file tải về:</div>
+            <div style="margin: 10px 0 5px; font-size: 12px;">📁 Danh sách file tải về (chọn file từ máy):</div>
             <div id="fileListContainer"></div>
-            <button id="addFileBtn" style="background:#2a3670; border:none; padding:8px; border-radius:10px; color:white; margin-bottom:12px; width:100%;">+ Thêm file</button>
+            <input type="file" id="fileUploadInput" multiple style="display:none;">
+            <button id="addFileBtn" class="file-upload-btn"><i class="fas fa-upload"></i> Chọn file từ máy</button>
             <button id="confirmAddProduct" class="admin-btn">✅ Xác nhận thêm sản phẩm</button>
         </div>
 
@@ -477,27 +496,37 @@
 <div id="toastMsg" class="toast"></div>
 
 <script>
-    // ==================== DATA ====================
-    const ADMIN_USER = "Storenguyenlongvipios2026";
-    const ADMIN_PASS = "Nguyenlongdeveloper2026";
+    // ==================== DATA (KHÔNG MẤT KHI CẬP NHẬT) ====================
+    const STORAGE_KEYS = {
+        USERS: 'nl_users_v2',
+        PRODUCTS: 'nl_products_v2',
+        PURCHASES: 'nl_purchases_v2',
+        DEPOSITS: 'nl_deposits_v2',
+        APPINFO: 'nl_appinfo_v2',
+        FILES: 'nl_files_v2'
+    };
 
-    let users = JSON.parse(localStorage.getItem("nl_users")) || {};
-    let products = JSON.parse(localStorage.getItem("nl_products")) || [];
-    let purchases = JSON.parse(localStorage.getItem("nl_purchases")) || [];
-    let deposits = JSON.parse(localStorage.getItem("nl_deposits")) || [];
-    let currentUser = null;
-
-    // Thông tin app
-    let appInfo = JSON.parse(localStorage.getItem("nl_appinfo")) || {
+    let users = JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS)) || {};
+    let products = JSON.parse(localStorage.getItem(STORAGE_KEYS.PRODUCTS)) || [];
+    let purchases = JSON.parse(localStorage.getItem(STORAGE_KEYS.PURCHASES)) || [];
+    let deposits = JSON.parse(localStorage.getItem(STORAGE_KEYS.DEPOSITS)) || [];
+    let appInfo = JSON.parse(localStorage.getItem(STORAGE_KEYS.APPINFO)) || {
         name: "STORE NGUYENLONGIOS",
         subText: "Config • Proxy • Script • MMO"
     };
+    let fileStorage = JSON.parse(localStorage.getItem(STORAGE_KEYS.FILES)) || {};
+
+    let currentUser = null;
+    let tempFiles = []; // Lưu { name, base64, size }
+
+    const ADMIN_USER = "Storenguyenlongvipios2026";
+    const ADMIN_PASS = "Nguyenlongdeveloper2026";
 
     function randomCode() {
         return "NL" + Math.random().toString(36).substring(2, 10).toUpperCase();
     }
 
-    // Khởi tạo dữ liệu mặc định
+    // Khởi tạo dữ liệu mặc định nếu chưa có
     if (Object.keys(users).length === 0) {
         users[ADMIN_USER] = {
             username: ADMIN_USER, password: ADMIN_PASS, isAdmin: true,
@@ -519,11 +548,12 @@
     saveAll();
 
     function saveAll() {
-        localStorage.setItem("nl_users", JSON.stringify(users));
-        localStorage.setItem("nl_products", JSON.stringify(products));
-        localStorage.setItem("nl_purchases", JSON.stringify(purchases));
-        localStorage.setItem("nl_deposits", JSON.stringify(deposits));
-        localStorage.setItem("nl_appinfo", JSON.stringify(appInfo));
+        localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+        localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));
+        localStorage.setItem(STORAGE_KEYS.PURCHASES, JSON.stringify(purchases));
+        localStorage.setItem(STORAGE_KEYS.DEPOSITS, JSON.stringify(deposits));
+        localStorage.setItem(STORAGE_KEYS.APPINFO, JSON.stringify(appInfo));
+        localStorage.setItem(STORAGE_KEYS.FILES, JSON.stringify(fileStorage));
     }
 
     function updateAppUI() {
@@ -560,6 +590,14 @@
         }
     }
 
+    // Lấy link file (có thể là url hoặc blob từ file đã upload)
+    function getFileLink(fileId) {
+        if (fileStorage[fileId]) {
+            return fileStorage[fileId].data; // base64 data url
+        }
+        return fileId; // trả về url gốc
+    }
+
     function renderProducts() {
         const container = document.getElementById("productsList");
         if (!container) return;
@@ -568,6 +606,9 @@
                 <div class="product-name">${escapeHtml(p.name)}</div>
                 <div class="product-price">${p.price.toLocaleString()}đ</div>
                 <div class="product-desc">${escapeHtml(p.desc).replace(/\n/g, '<br>')}</div>
+                <div class="file-list">
+                    ${p.files.map(f => `<a href="${getFileLink(f)}" target="_blank" class="file-link" download="${f.includes('blob:') ? 'file' : ''}"><i class="fas fa-download"></i> Tải file</a>`).join('')}
+                </div>
                 <button class="buy-btn" data-id="${p.id}" data-price="${p.price}" data-name="${escapeHtml(p.name)}" data-files='${JSON.stringify(p.files)}'>MUA NGAY</button>
             </div>
         `).join('');
@@ -647,9 +688,8 @@
         document.getElementById("purchaseHistoryList").innerHTML = his.map(p => `
             <div class="product-card" style="margin-bottom:12px;">
                 <div class="product-name">${escapeHtml(p.productName)}</div>
-                <div class="file-list" style="margin-top:8px;">
-                    <i class="fas fa-paperclip"></i> Link tải:<br>
-                    ${p.files.map(f => `<a href="${f}" target="_blank" style="color:#FFD966;">${escapeHtml(f)}</a>`).join('<br>')}
+                <div class="file-list">
+                    ${p.files.map(f => `<a href="${getFileLink(f)}" target="_blank" class="file-link" download><i class="fas fa-download"></i> Tải file</a>`).join('')}
                 </div>
                 <div style="font-size:10px; color:#8f9bb3; margin-top:8px;">${new Date(p.boughtAt).toLocaleString()}</div>
             </div>
@@ -687,39 +727,74 @@
         }
     }
 
-    // Admin: thêm sản phẩm với nhiều file
-    let tempFiles = [];
+    // Xử lý upload file
+    function handleFileUpload(files) {
+        for (let file of files) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const fileId = "file_" + Date.now() + "_" + Math.random().toString(36).substr(2, 8);
+                const base64Data = e.target.result;
+                fileStorage[fileId] = {
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    data: base64Data,
+                    uploadedAt: new Date().toISOString()
+                };
+                tempFiles.push(fileId);
+                renderFileInputs();
+                saveAll();
+                toast(`Đã thêm file: ${file.name}`);
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
     function renderFileInputs() {
         const container = document.getElementById("fileListContainer");
-        container.innerHTML = tempFiles.map((f, idx) => `
-            <div class="file-row">
-                <input type="text" value="${escapeHtml(f)}" placeholder="Link file" id="file_${idx}" onchange="updateFile(${idx}, this.value)">
-                <button onclick="removeFile(${idx})"><i class="fas fa-trash"></i></button>
-            </div>
-        `).join('');
+        container.innerHTML = tempFiles.map((fileId, idx) => {
+            const fileInfo = fileStorage[fileId];
+            const fileName = fileInfo ? fileInfo.name : fileId;
+            return `
+                <div class="file-row">
+                    <div class="file-name"><i class="fas fa-file"></i> ${escapeHtml(fileName)}</div>
+                    <button class="remove-file" onclick="removeFile(${idx})"><i class="fas fa-trash"></i></button>
+                </div>
+            `;
+        }).join('');
     }
-    window.addFile = function() { tempFiles.push(""); renderFileInputs(); };
-    window.removeFile = function(idx) { tempFiles.splice(idx, 1); renderFileInputs(); };
-    window.updateFile = function(idx, val) { tempFiles[idx] = val; };
+
+    window.removeFile = function(idx) {
+        const fileId = tempFiles[idx];
+        if (fileId && fileStorage[fileId]) {
+            delete fileStorage[fileId];
+            saveAll();
+        }
+        tempFiles.splice(idx, 1);
+        renderFileInputs();
+        toast("Đã xoá file");
+    };
 
     function confirmAddProduct() {
         const name = document.getElementById("prodName").value.trim();
         const desc = document.getElementById("prodDesc").value.trim();
         const price = parseInt(document.getElementById("prodPrice").value);
-        const files = tempFiles.filter(f => f.trim() !== "");
+        
         if (!name || isNaN(price) || price <= 0) { toast("Tên và giá không hợp lệ", true); return; }
+        
         const newProduct = {
             id: "p" + Date.now(),
             name: name,
             price: price,
             desc: desc || "Gói cấu hình cao cấp",
-            files: files.length ? files : ["https://default-link.com/config.zip"]
+            files: [...tempFiles]
         };
         products.push(newProduct);
         saveAll();
         renderProducts();
         renderAdminProductList();
         toast("Thêm sản phẩm thành công!");
+        
         document.getElementById("prodName").value = "";
         document.getElementById("prodDesc").value = "";
         document.getElementById("prodPrice").value = "";
@@ -812,11 +887,22 @@
     document.getElementById("atmTopup")?.addEventListener("click", atmTopup);
     document.getElementById("cardTopup")?.addEventListener("click", cardTopup);
     document.getElementById("confirmAddProduct")?.addEventListener("click", confirmAddProduct);
-    document.getElementById("addFileBtn")?.addEventListener("click", () => addFile());
     document.getElementById("saveAppInfoBtn")?.addEventListener("click", saveAppInfo);
     document.getElementById("addMoneyToUser")?.addEventListener("click", addMoneyToUser);
     document.getElementById("selfAddMoney")?.addEventListener("click", selfAddMoney);
     document.getElementById("navLogout")?.addEventListener("click", logout);
+    
+    document.getElementById("addFileBtn")?.addEventListener("click", () => {
+        const fileInput = document.getElementById("fileUploadInput");
+        fileInput.value = '';
+        fileInput.click();
+    });
+    document.getElementById("fileUploadInput")?.addEventListener("change", (e) => {
+        if (e.target.files.length > 0) {
+            handleFileUpload(Array.from(e.target.files));
+        }
+    });
+    
     document.getElementById("editAppBtn")?.addEventListener("click", () => {
         if (currentUser?.isAdmin) showPage('adminPage');
         else toast("Chỉ admin mới chỉnh sửa được", true);
