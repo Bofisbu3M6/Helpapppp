@@ -3,599 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>STORE NGUYENLONGIOS | Config & Proxy</title>
-    <!-- Font Awesome 6 -->
+    <title>STORE NGUYENLONGIOS | Config & Proxy VIP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #0a0c15;
-            font-family: system-ui, -apple-system, 'Segoe UI', 'Inter', 'Helvetica Neue', sans-serif;
-            padding: 20px 16px 40px;
-            color: #eee;
-        }
-
-        /* Container chính giống layout ảnh */
-        .app {
-            max-width: 500px;
-            margin: 0 auto;
-            background: #0f111a;
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
-        }
-
-        /* HEADER với tên store và menu 3 gạch */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 20px 10px;
-            border-bottom: 1px solid #232739;
-        }
-        .logo h2 {
-            font-size: 20px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #FFD966, #FFB347);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .logo p {
-            font-size: 10px;
-            color: #8f9bb3;
-            margin-top: 2px;
-        }
-        .menu-icon {
-            background: #1e243f;
-            width: 42px;
-            height: 42px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 22px;
-            transition: 0.2s;
-            position: relative;
-        }
-        .dropdown {
-            position: absolute;
-            top: 65px;
-            right: 20px;
-            background: #151b2f;
-            border-radius: 24px;
-            width: 230px;
-            z-index: 200;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            display: none;
-            flex-direction: column;
-            border: 1px solid #2f3a60;
-            overflow: hidden;
-        }
-        .dropdown button, .dropdown a {
-            background: transparent;
-            border: none;
-            padding: 14px 18px;
-            text-align: left;
-            color: white;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-        }
-        .dropdown button:hover, .dropdown a:hover {
-            background: #232b47;
-        }
-        .show-dropdown {
-            display: flex;
-        }
-
-        /* Form đăng nhập / đăng ký (giống ảnh) */
-        .auth-container {
-            padding: 25px 22px 30px;
-        }
-        .auth-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .input-group {
-            margin-bottom: 18px;
-        }
-        .input-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 6px;
-            color: #ccd6f0;
-        }
-        .input-group input {
-            width: 100%;
-            background: #181e32;
-            border: 1px solid #2d365b;
-            padding: 14px 16px;
-            border-radius: 28px;
-            color: white;
-            font-size: 15px;
-            outline: none;
-        }
-        .forgot-link {
-            text-align: right;
-            font-size: 12px;
-            margin-top: 5px;
-            color: #a0aec0;
-        }
-        .recaptcha {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #151e32;
-            padding: 12px;
-            border-radius: 40px;
-            margin: 18px 0;
-            font-size: 14px;
-        }
-        .btn-primary {
-            background: #3b4b9e;
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 16px;
-            color: white;
-            margin: 10px 0;
-            cursor: pointer;
-        }
-        .switch-auth {
-            text-align: center;
-            font-size: 14px;
-            color: #b9c3e6;
-            margin-top: 15px;
-        }
-        .switch-auth span {
-            color: #FFD966;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* Danh sách sản phẩm (Giống ảnh card) */
-        .products-section {
-            padding: 0 18px 20px;
-        }
-        .section-badge {
-            font-size: 13px;
-            color: #8f9bb3;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .product-card {
-            background: #111625;
-            border-radius: 24px;
-            padding: 18px;
-            margin-bottom: 18px;
-            border: 1px solid #25304d;
-        }
-        .product-name {
-            font-size: 18px;
-            font-weight: 800;
-        }
-        .product-price {
-            font-size: 24px;
-            font-weight: 800;
-            color: #FACC15;
-            margin: 5px 0;
-        }
-        .product-desc {
-            font-size: 13px;
-            color: #b7c1e0;
-            margin: 8px 0;
-            line-height: 1.4;
-        }
-        .product-desc ul {
-            padding-left: 18px;
-            margin-top: 5px;
-        }
-        .buy-product-btn {
-            background: linear-gradient(95deg, #2e3b6e, #1f274b);
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 40px;
-            font-weight: bold;
-            margin-top: 12px;
-            color: white;
-            cursor: pointer;
-        }
-        /* Phần đã mua */
-        .purchased-box {
-            background: #0b0e1a;
-            margin: 20px 18px;
-            border-radius: 24px;
-            padding: 16px;
-        }
-        .purchased-item {
-            background: #12172c;
-            border-radius: 20px;
-            padding: 12px;
-            margin-bottom: 12px;
-        }
-        .file-link {
-            word-break: break-all;
-            background: #00000040;
-            padding: 6px 10px;
-            border-radius: 16px;
-            font-size: 12px;
-            margin-top: 8px;
-        }
-        footer {
-            text-align: center;
-            padding: 18px;
-            font-size: 12px;
-            border-top: 1px solid #262d47;
-            color: #8f9bb3;
-        }
-        .admin-panel {
-            background: #0c1022;
-            margin: 20px;
-            padding: 16px;
-            border-radius: 28px;
-        }
-        .toast-msg {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1a2a3a;
-            padding: 12px 22px;
-            border-radius: 50px;
-            z-index: 999;
-            font-size: 13px;
-            display: none;
-        }
-        hr {
-            border-color: #2f3a60;
-            margin: 15px 0;
-        }
-        button {
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="app" id="appRoot">
-    <div class="header">
-        <div class="logo">
-            <h2>STORE NGUYENLONGIOS</h2>
-            <p>Config • Proxy • Script • MMO</p>
+<div class="app-wrapper">
+    <div class="app-container">
+        <!-- HEADER CAO CẤP -->
+        <div class="header-premium">
+            <div class="brand-area">
+                <div class="store-icon"><i class="fas fa-crown"></i></div>
+                <div class="store-title">
+                    <h1>STORE NGUYENLONGIOS</h1>
+                    <p>CONFIG • PROXY • SCRIPT • MMO</p>
+                </div>
+            </div>
+            <div class="menu-trigger" id="menuTrigger">
+                <i class="fas fa-sliders-h"></i>
+                <span class="menu-dot"></span>
+            </div>
+            <div class="dropdown-glass" id="dropdownGlass">
+                <button id="navAccountInfo"><i class="fas fa-user-astronaut"></i> Thông tin tài khoản</button>
+                <button id="navTopUp"><i class="fas fa-coins"></i> Nạp tiền (ATM/CARD)</button>
+                <button id="navDepositHistory"><i class="fas fa-history"></i> Lịch sử nạp</button>
+                <button id="navPurchaseHistory"><i class="fas fa-shopping-bag"></i> Lịch sử mua</button>
+                <button id="navLogout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+                <button id="navAdminPanel"><i class="fas fa-shield-alt"></i> Quản trị viên</button>
+            </div>
         </div>
-        <div class="menu-icon" id="menuBtn">
-            <i class="fas fa-bars"></i>
+
+        <!-- AUTH VIEW (Đăng nhập/Đăng ký) -->
+        <div id="authScreen" class="auth-screen">
+            <div class="auth-header">
+                <i class="fas fa-gamepad"></i>
+                <h2 id="authTitle">ĐĂNG NHẬP</h2>
+            </div>
+            <div class="auth-form">
+                <div class="input-icon-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="authUsername" placeholder="Tên đăng nhập">
+                </div>
+                <div class="input-icon-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="authPassword" placeholder="Mật khẩu">
+                </div>
+                <div id="forgotPasswordHint" class="forgot-hint">Quên mật khẩu?</div>
+                <div class="captcha-row">
+                    <input type="checkbox" id="captchaCheck"> 
+                    <label for="captchaCheck">Tôi không phải là người máy</label>
+                    <i class="fas fa-robot captcha-icon"></i>
+                </div>
+                <button id="authSubmitBtn" class="btn-main">ĐĂNG NHẬP</button>
+                <div class="auth-switch">
+                    <span id="switchAuthLabel">Bạn không có tài khoản?</span>
+                    <span id="toggleAuthModeBtn" class="switch-link">Đăng ký</span>
+                </div>
+            </div>
         </div>
-        <div class="dropdown" id="dropdownMenu">
-            <button id="accInfoBtn"><i class="fas fa-user-circle"></i> Thông tin tài khoản</button>
-            <button id="topUpNavBtn"><i class="fas fa-credit-card"></i> Nạp tiền (ATM/CARD)</button>
-            <button id="depositHistBtn"><i class="fas fa-history"></i> Lịch sử nạp</button>
-            <button id="purchaseHistBtn"><i class="fas fa-shopping-bag"></i> Lịch sử mua hàng</button>
-            <button id="logoutNavBtn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
-            <button id="adminNavBtn"><i class="fas fa-crown"></i> Quản trị viên</button>
+
+        <!-- MAIN APP (Sau khi đăng nhập) -->
+        <div id="mainAppScreen" style="display: none;">
+            <!-- Thông báo số dư nổi bật -->
+            <div class="balance-card" id="balanceCard">
+                <i class="fas fa-wallet"></i>
+                <span>Số dư: </span><strong id="userBalanceDisplay">0đ</strong>
+            </div>
+
+            <!-- SẢN PHẨM -->
+            <div class="section-label">
+                <i class="fas fa-gem"></i> GÓI CẤU HÌNH VIP
+                <i class="fas fa-headset" style="margin-left: auto;"></i>
+            </div>
+            <div id="productsGrid" class="products-grid"></div>
+
+            <!-- SẢN PHẨM ĐÃ MUA -->
+            <div class="section-label">
+                <i class="fas fa-folder-open"></i> KHO FILE ĐÃ MUA
+            </div>
+            <div id="purchasedArea" class="purchased-area">Chưa có sản phẩm nào</div>
+
+            <!-- ADMIN PANEL (ẩn) -->
+            <div id="adminPanelSection" class="admin-panel-glass" style="display: none;">
+                <div class="admin-title"><i class="fas fa-dragon"></i> BẢNG ĐIỀU KHIỂN</div>
+                <input type="text" id="adminProdName" placeholder="Tên sản phẩm">
+                <textarea id="adminProdDesc" rows="2" placeholder="Mô tả chi tiết..."></textarea>
+                <input type="number" id="adminProdPrice" placeholder="Giá (VNĐ)">
+                <textarea id="adminProdFiles" rows="2" placeholder="Link file (mỗi dòng 1 link)"></textarea>
+                <button id="adminAddProductBtn" class="admin-btn">➕ THÊM SẢN PHẨM</button>
+                <hr>
+                <input type="text" id="adminTargetUser" placeholder="Tên user cần cộng tiền">
+                <input type="number" id="adminMoneyAmount" placeholder="Số tiền">
+                <button id="adminAddMoneyBtn" class="admin-btn">💰 CỘNG TIỀN USER</button>
+                <button id="adminSelfAddMoneyBtn" class="admin-btn">✨ +100K CHO ADMIN</button>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer-info">
+            <i class="fab fa-zalo"></i> ZALO: 0933653553 (Nguyen Long) &nbsp;|&nbsp;
+            <i class="fab fa-tiktok"></i> TIKTOK: NguyenLong X Aura
         </div>
     </div>
-
-    <!-- Khu vực đăng nhập / đăng ký (giống giao diện IMG) -->
-    <div id="authView" class="auth-container">
-        <div class="auth-title" id="authTitle">Đăng Nhập</div>
-        <div class="input-group">
-            <label>Tên đăng nhập</label>
-            <input type="text" id="loginUsername" placeholder="Enter Username">
-        </div>
-        <div class="input-group">
-            <label>Mật khẩu</label>
-            <input type="password" id="loginPassword" placeholder="Vui lòng nhập mật khẩu">
-        </div>
-        <div id="forgotRow" class="forgot-link">Quên mật khẩu</div>
-        <div class="recaptcha">
-            <input type="checkbox"> <span>Tôi không phải là người máy</span> <i class="fas fa-shield-alt" style="margin-left: auto;"></i>
-        </div>
-        <button class="btn-primary" id="submitAuthBtn">Đăng Nhập</button>
-        <div class="switch-auth" id="switchText">Bạn không có tài khoản? <span id="toggleAuthMode">Đăng ký</span></div>
-    </div>
-
-    <!-- Khu vực sản phẩm & nội dung chính (hiện khi đã login) -->
-    <div id="mainAppView" style="display: none;">
-        <div class="products-section">
-            <div class="section-badge"><span>🔥 GÓI DÀNH CHO BẠN</span> <span>⚡ Hỗ trợ 24/7</span></div>
-            <div id="productList"></div>
-        </div>
-        <div class="purchased-box">
-            <div><i class="fas fa-download"></i> <strong>Sản phẩm đã mua</strong></div>
-            <div id="purchasedContainer" style="margin-top: 12px;">Chưa có sản phẩm nào</div>
-        </div>
-        <div id="adminArea" style="display: none;" class="admin-panel">
-            <h3>👑 Admin Panel</h3>
-            <input type="text" id="prodName" placeholder="Tên sản phẩm" style="width:100%; margin-bottom:8px;">
-            <textarea id="prodDesc" rows="2" placeholder="Mô tả... (có thể dùng ul li)"></textarea>
-            <input type="number" id="prodPrice" placeholder="Giá (VNĐ)">
-            <textarea id="prodFiles" rows="2" placeholder="Link file (mỗi dòng 1 link)"></textarea>
-            <button id="addProductBtnAdmin">➕ Thêm sản phẩm</button>
-            <hr>
-            <input type="text" id="targetUserMoney" placeholder="Tên user cần cộng tiền">
-            <input type="number" id="amountMoney" placeholder="Số tiền">
-            <button id="addMoneyToUserBtn">💰 Cộng tiền cho user</button>
-            <button id="selfAddMoneyAdmin" style="margin-top:8px;">➕ Cộng 100K cho Admin</button>
-        </div>
-    </div>
-
-    <footer>
-        <i class="fab fa-zalo"></i> ZALO: 0933653553 (Nguyen Long) &nbsp;&nbsp; <i class="fab fa-tiktok"></i> TikTok: NguyenLong X Aura
-    </footer>
 </div>
-<div id="toastMsg" class="toast-msg"></div>
+<div id="globalToast" class="global-toast"></div>
 
-<script>
-    // ---------- DỮ LIỆU ----------
-    const ADMIN_USER = "Storenguyenlongvipios2026";
-    const ADMIN_PASS = "Nguyenlongdeveloper2026";
-
-    let users = JSON.parse(localStorage.getItem("store_users_v2")) || {};
-    let products = JSON.parse(localStorage.getItem("store_products_v2")) || [
-        { id: "p1", name: "MUA GÓI TIÊU CHUẨN", price: 150000, desc: "Config / Trải Nghiệm\n- Fix rung tâm cơ bản (50-60%)\n- Chạy tốt iOS & Android\n- Cài đặt nhanh gọn", files: ["https://file.demo/config1.zip"] },
-        { id: "p2", name: "Config Tiêu Chuẩn", price: 350000, desc: "Dành cho leo Rank tâm trung & giải trí.\n- Fix rung tâm tốt (60%)\n- Độ nhạy ổn định hơn 50%\n- Giảm giật lag nhẹ", files: ["https://file.demo/config2.zip"] },
-        { id: "p3", name: "Pro Script Vĩnh Viễn 🎉", price: 500000, desc: "✅ Mở khóa VIP\n✅ Tối ưu đường truyền\n✅ Cập nhật trọn đời", files: ["https://file.demo/pro.zip"] },
-        { id: "p4", name: "CONFIG VIP - LIMITED", price: 500000, desc: "DÀNH CHO DÂN CHUYÊN\n- Bám đầu 99%\n- Ổn định 100%\n- Hỗ trợ update theo OB", files: ["https://file.demo/vip.zip"] }
-    ];
-    let purchases = JSON.parse(localStorage.getItem("store_purchases_v2")) || [];
-    let deposits = JSON.parse(localStorage.getItem("store_deposits_v2")) || [];
-
-    let currentUser = null;
-
-    function saveAll() {
-        localStorage.setItem("store_users_v2", JSON.stringify(users));
-        localStorage.setItem("store_products_v2", JSON.stringify(products));
-        localStorage.setItem("store_purchases_v2", JSON.stringify(purchases));
-        localStorage.setItem("store_deposits_v2", JSON.stringify(deposits));
-    }
-
-    function randomCustomerCode() {
-        return "NV" + Math.random().toString(36).substring(2, 10).toUpperCase();
-    }
-
-    if (!users[ADMIN_USER]) {
-        users[ADMIN_USER] = { username: ADMIN_USER, password: ADMIN_PASS, isAdmin: true, balance: 890000, customerCode: randomCustomerCode(), createdAt: new Date().toISOString() };
-    }
-    if (!users["demoUser"]) {
-        users["demoUser"] = { username: "demoUser", password: "demo123", isAdmin: false, balance: 200000, customerCode: randomCustomerCode(), createdAt: new Date().toISOString() };
-    }
-    saveAll();
-
-    // Helper
-    function showToast(msg, isErr = false) {
-        let t = document.getElementById("toastMsg");
-        t.textContent = msg;
-        t.style.display = "block";
-        t.style.background = isErr ? "#8b2c2c" : "#1f4f2b";
-        setTimeout(() => t.style.display = "none", 2500);
-    }
-
-    function renderProductsUI() {
-        if (!currentUser) return;
-        const container = document.getElementById("productList");
-        if (!container) return;
-        if (products.length === 0) { container.innerHTML = "<div>Chưa có sản phẩm</div>"; return; }
-        container.innerHTML = products.map(prod => `
-            <div class="product-card">
-                <div class="product-name">${escapeHtml(prod.name)}</div>
-                <div class="product-price">${prod.price.toLocaleString()}đ</div>
-                <div class="product-desc">${escapeHtml(prod.desc).replace(/\n/g, '<br>')}</div>
-                <button class="buy-product-btn" data-id="${prod.id}" data-price="${prod.price}" data-name="${escapeHtml(prod.name)}" data-files='${JSON.stringify(prod.files)}'><i class="fas fa-cart-shopping"></i> MUA NGAY</button>
-            </div>
-        `).join('');
-        document.querySelectorAll('.buy-product-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                let price = parseInt(btn.dataset.price);
-                if (currentUser.balance < price) { showToast(`Số dư không đủ! Cần ${price.toLocaleString()}đ`, true); return; }
-                currentUser.balance -= price;
-                users[currentUser.username] = currentUser;
-                let productName = btn.dataset.name;
-                let filesArr = JSON.parse(btn.dataset.files);
-                purchases.push({ username: currentUser.username, productName: productName, files: filesArr, boughtAt: new Date().toISOString() });
-                saveAll();
-                renderPurchasedUI();
-                renderProductsUI();
-                showToast(`✅ Mua thành công ${productName}! File đã có trong "Sản phẩm đã mua".`);
-            });
-        });
-    }
-
-    function renderPurchasedUI() {
-        const container = document.getElementById("purchasedContainer");
-        if (!currentUser) return;
-        let myPurchases = purchases.filter(p => p.username === currentUser.username);
-        if (myPurchases.length === 0) { container.innerHTML = "Chưa mua sản phẩm nào."; return; }
-        container.innerHTML = myPurchases.map(p => `
-            <div class="purchased-item">
-                <strong>${escapeHtml(p.productName)}</strong> <span style="font-size:11px;">${new Date(p.boughtAt).toLocaleString()}</span>
-                <div class="file-link"><i class="fas fa-paperclip"></i> Link tải:<br> ${p.files.map(f => `<a href="${f}" target="_blank" style="color:#FACC15;">${f}</a>`).join('<br>')}</div>
-            </div>
-        `).join('');
-    }
-
-    function refreshUIAfterLogin() {
-        document.getElementById("authView").style.display = "none";
-        document.getElementById("mainAppView").style.display = "block";
-        renderProductsUI();
-        renderPurchasedUI();
-        let adminDiv = document.getElementById("adminArea");
-        if (currentUser && currentUser.isAdmin) adminDiv.style.display = "block";
-        else adminDiv.style.display = "none";
-    }
-
-    // Xử lý đăng nhập / đăng ký theo giao diện ảnh
-    let isLoginMode = true;
-    function toggleAuthMode() {
-        isLoginMode = !isLoginMode;
-        const title = document.getElementById("authTitle");
-        const submitBtn = document.getElementById("submitAuthBtn");
-        const switchSpan = document.getElementById("toggleAuthMode");
-        const forgot = document.getElementById("forgotRow");
-        if (isLoginMode) {
-            title.innerText = "Đăng Nhập";
-            submitBtn.innerText = "Đăng Nhập";
-            switchSpan.innerText = "Đăng ký";
-            forgot.style.display = "block";
-        } else {
-            title.innerText = "Đăng Ký";
-            submitBtn.innerText = "Đăng Ký";
-            switchSpan.innerText = "Đăng nhập";
-            forgot.style.display = "none";
-        }
-    }
-
-    document.getElementById("toggleAuthMode")?.addEventListener("click", toggleAuthMode);
-    document.getElementById("submitAuthBtn")?.addEventListener("click", () => {
-        let username = document.getElementById("loginUsername").value.trim();
-        let password = document.getElementById("loginPassword").value.trim();
-        if (!username || !password) { showToast("Vui lòng nhập đủ thông tin", true); return; }
-        if (isLoginMode) {
-            if (users[username] && users[username].password === password) {
-                currentUser = users[username];
-                localStorage.setItem("current_session_user", username);
-                refreshUIAfterLogin();
-                showToast(`Chào mừng ${username}`);
-            } else { showToast("Sai tên đăng nhập hoặc mật khẩu", true); }
-        } else {
-            if (users[username]) { showToast("Tên đã tồn tại", true); return; }
-            let newUser = {
-                username, password, isAdmin: false, balance: 50000,
-                customerCode: randomCustomerCode(), createdAt: new Date().toISOString()
-            };
-            users[username] = newUser;
-            saveAll();
-            currentUser = newUser;
-            localStorage.setItem("current_session_user", username);
-            refreshUIAfterLogin();
-            showToast("Đăng ký thành công! Tặng 50,000đ");
-        }
-    });
-
-    // Khôi phục session
-    let savedSession = localStorage.getItem("current_session_user");
-    if (savedSession && users[savedSession]) {
-        currentUser = users[savedSession];
-        refreshUIAfterLogin();
-    } else {
-        document.getElementById("authView").style.display = "block";
-        document.getElementById("mainAppView").style.display = "none";
-    }
-
-    // MENU functions
-    document.getElementById("accInfoBtn")?.addEventListener("click", () => {
-        if(currentUser) alert(`👤 Tài khoản: ${currentUser.username}\n🎫 Mã KH: ${currentUser.customerCode}\n📅 Ngày tạo: ${new Date(currentUser.createdAt).toLocaleString()}\n💰 Số dư: ${currentUser.balance.toLocaleString()}đ`);
-        else showToast("Chưa đăng nhập",true);
-    });
-    document.getElementById("topUpNavBtn")?.addEventListener("click", () => {
-        if(!currentUser) return showToast("Đăng nhập để nạp",true);
-        let method = confirm("Chọn: OK = ATM (Admin xử lý thủ công) | Cancel = Thẻ cào (AutoCard1s)");
-        if(method) {
-            let amount = prompt("Số tiền nạp ATM:");
-            if(amount && !isNaN(parseInt(amount))) {
-                deposits.push({ username: currentUser.username, amount: parseInt(amount), method: "ATM", status: "Chờ xử lý", timestamp: new Date().toISOString() });
-                saveAll();
-                showToast("Yêu cầu nạp ATM đã ghi nhận, admin sẽ xử lý.");
-            }
-        } else {
-            let code = prompt("Mã thẻ:");
-            let serial = prompt("Serial thẻ:");
-            let money = prompt("Mệnh giá:");
-            if(code && serial && money && !isNaN(parseInt(money))) {
-                if(code.includes("error") || serial.includes("error")) {
-                    deposits.push({ username: currentUser.username, amount: parseInt(money), method: "Thẻ cào Auto", status: "Thất bại", timestamp: new Date().toISOString() });
-                    saveAll();
-                    showToast("Thẻ lỗi! Sai mã/serial", true);
-                } else {
-                    currentUser.balance += parseInt(money);
-                    users[currentUser.username] = currentUser;
-                    deposits.push({ username: currentUser.username, amount: parseInt(money), method: "Thẻ cào Auto", status: "Thành công", timestamp: new Date().toISOString() });
-                    saveAll();
-                    showToast(`Nạp thẻ thành công! +${parseInt(money).toLocaleString()}đ`);
-                    renderProductsUI();
-                }
-            } else showToast("Thông tin không hợp lệ",true);
-        }
-    });
-    document.getElementById("depositHistBtn")?.addEventListener("click", () => {
-        if(!currentUser) return;
-        let his = deposits.filter(d=> d.username === currentUser.username);
-        if(his.length===0) alert("Chưa có lịch sử nạp");
-        else alert(his.map(h=>`${h.method} - ${h.amount.toLocaleString()}đ - ${h.status} - ${new Date(h.timestamp).toLocaleString()}`).join("\n"));
-    });
-    document.getElementById("purchaseHistBtn")?.addEventListener("click", () => {
-        if(!currentUser) return;
-        let his = purchases.filter(p=> p.username === currentUser.username);
-        if(his.length===0) alert("Chưa mua sản phẩm nào");
-        else alert(his.map(p=>`${p.productName} - ${new Date(p.boughtAt).toLocaleString()}`).join("\n"));
-    });
-    document.getElementById("logoutNavBtn")?.addEventListener("click", () => {
-        localStorage.removeItem("current_session_user");
-        location.reload();
-    });
-    document.getElementById("adminNavBtn")?.addEventListener("click", () => {
-        if(currentUser && currentUser.isAdmin) document.getElementById("adminArea").style.display = "block";
-        else showToast("Không có quyền admin",true);
-    });
-    // Admin functions
-    document.getElementById("addProductBtnAdmin")?.addEventListener("click", () => {
-        let name = document.getElementById("prodName").value.trim();
-        let desc = document.getElementById("prodDesc").value.trim();
-        let price = parseInt(document.getElementById("prodPrice").value);
-        let filesRaw = document.getElementById("prodFiles").value;
-        if(!name || isNaN(price)) { showToast("Tên và giá hợp lệ",true); return; }
-        let fileArr = filesRaw.split("\n").filter(f=>f.trim()!=="");
-        let newProd = { id: "id"+Date.now(), name, price, desc: desc || "Không có mô tả", files: fileArr.length?fileArr:["https://example.com/file.zip"] };
-        products.push(newProd);
-        saveAll();
-        renderProductsUI();
-        showToast("Đã thêm sản phẩm!");
-    });
-    document.getElementById("addMoneyToUserBtn")?.addEventListener("click", () => {
-        let uname = document.getElementById("targetUserMoney").value.trim();
-        let amt = parseInt(document.getElementById("amountMoney").value);
-        if(users[uname] && !isNaN(amt)) {
-            users[uname].balance += amt;
-            if(currentUser && currentUser.username === uname) currentUser.balance = users[uname].balance;
-            saveAll();
-            renderProductsUI();
-            showToast(`Đã cộng ${amt.toLocaleString()}đ cho ${uname}`);
-        } else showToast("Sai tên hoặc số tiền",true);
-    });
-    document.getElementById("selfAddMoneyAdmin")?.addEventListener("click", () => {
-        if(currentUser && currentUser.isAdmin) {
-            currentUser.balance += 100000;
-            users[currentUser.username] = currentUser;
-            saveAll();
-            renderProductsUI();
-            showToast("Admin +100,000đ");
-        } else showToast("Chỉ admin",true);
-    });
-
-    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; return '&gt;';}); }
-
-    // menu dropdown
-    const menuBtn = document.getElementById("menuBtn");
-    const dropdown = document.getElementById("dropdownMenu");
-    menuBtn?.addEventListener("click", (e) => { e.stopPropagation(); dropdown.classList.toggle("show-dropdown"); });
-    document.addEventListener("click", function(e) { if (!dropdown.contains(e.target) && e.target !== menuBtn) dropdown.classList.remove("show-dropdown"); });
-</script>
+<script src="data.js"></script>
+<script src="admin.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
